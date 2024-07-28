@@ -78,10 +78,10 @@ class PaynetService
         $this->ensureAuthenticated();
         $signature = $this->generateSignature($paymentData);
         $paymentData['Signature'] = $signature;
-        $paymentData['MerchantCode'] = $this->merchantCode;
+        //$paymentData['MerchantCode'] = $this->merchantCode;
 
         try {
-            $response = $this->client->post("{$this->apiUrl}/Payments", [
+            $response = $this->client->post("{$this->apiUrl}/api/Payments/Send", [
                 'headers' => [
                     'Authorization' => "Bearer {$this->token}",
                     'Content-Type' => 'application/json',
@@ -92,7 +92,7 @@ class PaynetService
             return json_decode($response->getBody(), true);
         } catch (\Exception $e) {
             Log::error('Paynet payment failed: ' . $e->getMessage());
-            throw new PaynetException('Failed to send payment to Paynet API.');
+            throw new PaynetException('Failed to send payment to Paynet API.' . $e->getMessage() );
         }
     }
 
@@ -105,9 +105,29 @@ class PaynetService
     protected function generateSignature(array $data)
     {
         ksort($data);
-        $stringToSign = implode('', array_values($data)) . $this->secretKey;
+        $stringToSign = $this->arrayToString($data) . $this->secretKey;
         return base64_encode(md5($stringToSign, true));
     }
+
+    /**
+     * Convert an array to a string by concatenating its values.
+     *
+     * @param array $data
+     * @return string
+     */
+    private function arrayToString(array $data)
+    {
+        $result = '';
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $result .= $this->arrayToString($value);
+            } else {
+                $result .= (string)$value;
+            }
+        }
+        return $result;
+    }
+
 
     /**
      * Validate the notification signature.
