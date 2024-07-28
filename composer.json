@@ -1,0 +1,34 @@
+{
+    "name": "nikba/paynet",
+    "description": "Paynet payment module for Laravel",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Nikba\\Paynet\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bargan Nicolai",
+            "email": "office@nikba.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "guzzlehttp/guzzle": "^7.0",
+        "illuminate/support": "^8.0|^9.0|^10.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Nikba\\Paynet\\Providers\\PaynetServiceProvider"
+            ],
+            "aliases": {
+                "Paynet": "Nikba\\Paynet\\Facades\\Paynet"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

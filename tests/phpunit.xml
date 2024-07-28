@@ -1,0 +1,19 @@
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         stopOnFailure="false">
+    <testsuites>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./tests/Unit</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <env name="PAYNET_API_URL" value="https://api-merchant.test.paynet.md/"/>
+        <env name="PAYNET_MERCHANT_CODE" value="862491"/>
+        <env name="PAYNET_SECRET_KEY" value="F822E47B-6F4F-4D9D-92EB-566ED89E3D76"/>
+        <env name="PAYNET_USERNAME" value="388018"/>
+        <env name="PAYNET_PASSWORD" value="6olmfsQX"/>
+        <env name="PAYNET_MODE" value="false"/>
+    </php>
+</phpunit>
