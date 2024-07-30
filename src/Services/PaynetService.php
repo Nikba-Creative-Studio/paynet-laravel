@@ -78,7 +78,7 @@ class PaynetService
         $this->ensureAuthenticated();
         $signature = $this->generateSignature($paymentData);
         $paymentData['Signature'] = $signature;
-        //$paymentData['MerchantCode'] = $this->merchantCode;
+        $paymentData['MerchantCode'] = (int)$this->merchantCode;
 
         try {
             $response = $this->client->post("{$this->apiUrl}/api/Payments/Send", [
@@ -95,6 +95,33 @@ class PaynetService
             throw new PaynetException('Failed to send payment to Paynet API.' . $e->getMessage() );
         }
     }
+    
+    /**
+     * Get the status of a payment.
+     *
+     * @param string $paymentId
+     * @return array
+     * @throws PaynetException
+     */
+    public function getPayment(string $paymentId)
+    {
+        $this->ensureAuthenticated();
+
+        try {
+            $response = $this->client->get("{$this->apiUrl}/api/Payments/{$paymentId}", [
+                'headers' => [
+                    'Authorization' => "Bearer {$this->token}",
+                    'Content-Type' => 'application/json',
+                ],
+            ]);
+
+            return json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            Log::error('Paynet payment status retrieval failed: ' . $e->getMessage());
+            throw new PaynetException('Failed to retrieve payment status from Paynet API.' . $e->getMessage());
+        }
+    }
+        
 
     /**
      * Generate a signature for payment data.
