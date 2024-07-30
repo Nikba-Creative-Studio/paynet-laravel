@@ -38,7 +38,8 @@ use Nikba\Paynet\Facades\Paynet;
 $paymentData = [
     'Invoice' => 20160622010101,
     'Currency' => 498,
-    'MerchantCode' => 'MerchantCode',
+    'LinkUrlSuccess' => 'http://localhost:8000/pay/1?status=success',
+    'LinkUrlCancel' => 'http://localhost:8000/pay/1?status=cancel',
     'Customer' => [
         'Code' => 'CustomerCode',
         'NameFirst' => 'FirstName',
@@ -49,7 +50,8 @@ $paymentData = [
         'City' => 'City',
         'Address' => 'Address',
     ],
-    'ExpiryDate' => '2025-01-01T00:00:00',
+    'ExternalDate' => '2025-01-01T00:00:00',
+    'ExpiryDate' => '2025-01-02T00:00:00',
     'Services' => [
         [
             'Name' => 'ServiceName',
@@ -58,11 +60,8 @@ $paymentData = [
             'Products' => [
                 [
                     'Amount' => 100,
-                    'Barcode' => 13243546,
                     'Code' => 'PRODUCT1',
                     'Description' => 'ProductDescription',
-                    'GroupId' => '22',
-                    'GroupName' => 'GroupName',
                     'LineNo' => 1,
                     'Name' => 'ProductName',
                     'UnitPrice' => 100,
@@ -71,9 +70,8 @@ $paymentData = [
             ],
         ],
     ],
-    'MoneyType' => [
-        'Code' => 'PAYNET',
-    ],
+    'SignVersion' => 'v01',
+    'MoneyType' => null
 ];
 
 $response = Paynet::sendPayment($paymentData);
@@ -112,3 +110,10 @@ Run the tests:
 ```bash
 vendor/bin/phpunit --filter PaynetServiceTest
 ```
+
+## Postman
+[Postman](https://getpostman.com) Collections (JSON file) for a quicker and easier usage of RESTful APIs.
+
+### How to import and configure
+- Download the `postman_collection.json` repository.
+- Click the Import button. On Postman for Mac, for example, the button is at the top left

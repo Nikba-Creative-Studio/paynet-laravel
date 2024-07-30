@@ -1,0 +1,248 @@
+{
+	"info": {
+		"_postman_id": "07b9783a-4f0e-4d45-8854-18ac5aaffb14",
+		"name": "PSP-PAYNET",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11451147"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"token\", jsonData.access_token);",
+							"postman.setEnvironmentVariable(\"ref_token\", jsonData.refresh_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "ro-RO"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "601274",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "lQUBtknO",
+							"type": "text"
+						},
+						{
+							"key": "merchantcode",
+							"value": "975860",
+							"type": "text"
+						},
+						{
+							"key": "salearea",
+							"value": "GeneralTest",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api-merchant.test.paynet.md/auth",
+					"protocol": "https",
+					"host": [
+						"api-merchant",
+						"test",
+						"paynet",
+						"md"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Payments/Send",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer  VvaygsZjYxRj9br7--hDylD1bT2H4ushtoX0VYV0HeVr_h6urK3M-q7suaE3y4bS3Vtp-pmd1Y85Hme0bcKAwmrwAowIdVgOuiKN9NPL0DsPjC5IrfVFdkqaZMwYQtCZYpoGAU6UqkDXuLMifuAIbKcTRTWcSNOT4UsHzYluVPLR9yKTZUqc8sQ14mi5WMN-0lkHwxOVbiu6IktkdUAChfRyIXyT83QQiQV-7tqR8Srdwf-4IHOlXYwS5ft6bXSB5-8qpoW0ILWmV8HQJRTJEKr7IVyBUIfbkq_QOKDJ-liRNMNL_q7vNvpr0NuIlq46YItnO6rSpRMkz7uLB5Ej9E5crFJEFGjcTPF6Nm3Yb02uRhUBnls8uN9wfRS9DelaeJvvKO1m4oGISPUS8Ws8ZwbAp_gLfghqDIJeQ_WAfBxdWj2QycdpEjksiDk-M36AnJb6n2BwYKuOUWVY9VzqTnakiGNGJFyFLrY5y0OEtXY",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"Invoice\":214454,\n\t\"MerchantCode\":\"975860\",\n\t\"LinkUrlSuccess\":\"http://localhost:8080/psp/ok?id=1597822954534\",\n\t\"LinkUrlCancel\":\"http://localhost:8080/psp/cancel?id=1597822954534\",\n\t\"Signature\":null,\n\t\"SignVersion\":\"v01\",\n\t\"Customer\":{\n\t\t\"Code\":\"o.stoianov@paynet.md\",\n\t\t\"Name\":\"Oleg\",\n\t\t\"NameFirst\":\"Stoianov\",\n\t\t\"NameLast\":\"Name last \",\n\t\t\"email\":\"o.stoianov@paynet.md\",\n\t\t\"Country\":\"Moldova\",\n\t\t\"City\": \"Chisinau\",\n\t\t\"Address\":\"www.paynet.md\",\n\t\t\"PhoneNumber\":\"79000000\"\n\t\t\n\t},\n\t\t\"Payer\":null,\n\t\t\"Currency\":498,\n\t\t\"ExternalDate\":\"2021-09-19T10:42:34\",\n\t\t\"ExpiryDate\":\"2021-09-19T13:42:34\",\n\t\t\"Services\":[\n\t\t\t{\"Name\":\"Demo eshop\",\n\t\t\t\"Description\":\"Demo eShop online desc\",\n\t\t\t\"Amount\":6550,\n\t\t\t\"Products\":[\n\t\t\t\t{\"GroupName\":null,\"QualitiesConcat\":null,\"LineNo\":1,\"GroupId\":null,\"Code\":\"code1001\",\"Barcode\":1001,\"Name\":\"Ticket mini\",\"Description\":\"Description your product MINI\",\"UnitPrice\":2000,\"UnitProduct\":null,\"Quantity\":200,\"Amount\":null,\"Dimensions\":null,\"Qualities\":null,\"TotalAmount\":4000},\n\t\t\t\t{\"GroupName\":null,\"QualitiesConcat\":null,\"LineNo\":2,\"GroupId\":null,\"Code\":\"code1002\",\"Barcode\":1002,\"Name\":\"Ticket MAX\",\"Description\":\"Description your product MAX\",\"UnitPrice\":1050,\"UnitProduct\":null,\"Quantity\":100,\"Amount\":null,\"Dimensions\":null,\"Qualities\":null,\"TotalAmount\":1050},\n\t\t\t\t{\"GroupName\":null,\"QualitiesConcat\":null,\"LineNo\":3,\"GroupId\":null,\"Code\":\"code1003\",\"Barcode\":1003,\"Name\":\"Ticket MAX 3\",\"Description\":\"Description your product MAX\",\"UnitPrice\":500,\"UnitProduct\":null,\"Quantity\":300,\"Amount\":null,\"Dimensions\":null,\"Qualities\":null,\"TotalAmount\":1500}\n\t\t\t\t]\n\t\t\t\t\n\t\t\t}\n\t\t\t],\n\t\t\t\"MoneyType\":null\n\t\n}"
+				},
+				"url": {
+					"raw": "https://api-merchant.test.paynet.md/api/Payments/Send",
+					"protocol": "https",
+					"host": [
+						"api-merchant",
+						"test",
+						"paynet",
+						"md"
+					],
+					"path": [
+						"api",
+						"Payments",
+						"Send"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Redirect",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "f",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "operation",
+							"value": "152469",
+							"type": "text"
+						},
+						{
+							"key": "LinkUrlSucces",
+							"value": "ttp://localhost:8080/psp/ok?id=1597822954534",
+							"type": "text"
+						},
+						{
+							"key": "LinkUrlCancel",
+							"value": "ttp://localhost:8080/psp/cancel?id=1597822954534",
+							"type": "text"
+						},
+						{
+							"key": "ExpiryDate",
+							"value": "2020-08-22T21:07:16",
+							"type": "text"
+						},
+						{
+							"key": "Signature",
+							"value": "bdf479eddca8acf6fefa9a57fdf4f0a2",
+							"type": "text"
+						},
+						{
+							"key": "Lang",
+							"value": "ru",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test.paynet.md/acquiring/getecom?operation=152469&LinkUrlSucces=http://localhost:8080/psp/ok?id=1597822954534&LinkUrlCancel=http://localhost:8080/psp/ok?id=1597822954534&ExpiryDate=2020-08-22T21:07:16&Signature=bdf479eddca8acf6fefa9a57fdf4f0a2&Lang=ru",
+					"protocol": "https",
+					"host": [
+						"test",
+						"paynet",
+						"md"
+					],
+					"path": [
+						"acquiring",
+						"getecom"
+					],
+					"query": [
+						{
+							"key": "operation",
+							"value": "152469"
+						},
+						{
+							"key": "LinkUrlSucces",
+							"value": "http://localhost:8080/psp/ok?id=1597822954534"
+						},
+						{
+							"key": "LinkUrlCancel",
+							"value": "http://localhost:8080/psp/ok?id=1597822954534"
+						},
+						{
+							"key": "ExpiryDate",
+							"value": "2020-08-22T21:07:16"
+						},
+						{
+							"key": "Signature",
+							"value": "bdf479eddca8acf6fefa9a57fdf4f0a2"
+						},
+						{
+							"key": "Lang",
+							"value": "ru"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Payments",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer iAK4Esae80mSK-KKG23Qgqqu6iyC1cmi4N-2HlI2cqyQRb-faJJ7c-86W1p05sBWsUkVWIvCbR4MFvTYzzantQmlhey2Icv7WwYqKped7YX9eefXIGX8gmdtXfTZj3HO3HKKpFHDyuPl_rz2rRd_XF_Xwdd-ZJgh9kq7OP6kKse-Fdyj2WCPZRxiGPY4PEginzsr16w1UWzspcVojshmo9hTZEbeBvMpAy9sqI6zNawOd0aGGRqDds4iu_bPoFJnzOW4PLltKlU5dqhfoEZKSLh7tni9onAkkHCagEP9BbY5OPAr42-QEkGgHl2pWE8eEVpvufjRGh1BbSexmJbS7K8KRtIdT0jpDoUTUiMVBY_Zqu98cRh9ai0UJadLtsqwo0A2rc9fUo13lkU78TAOK9XYadN0gJN131030zNUcCIZ3bZB8gTKkAJ7Of2CgisQh5upVfzpdSPdIC7Nc79DC-DIeicHws0EkiPEfK4YsORq_kTeRuvrcLLFL97rqd37QBrdONHqlViBYGoNogKpo5znW5uQDpsEsUcSB1r48Wm6F6PiYunuSpAmrrskPNFXbc5MAihwDXviVx9NDDNKrLtFzZxL1ZGGwJMo5ksCsiDuRRpHfLDMTvGTrXjL2i-GzftV4ECgrLcbqFSDuDmYRN5yPMvfvKqDkVhPfUBwtTS0F0pUuwQlHG3D_dhFHwC-FJirKs9021QAgSiIsZ29hbySCMFCZB_nl5YZ_yLdJ7UhvRh6smMxCgqMRBmywPxuG_yT2nn99m2fkQkozYAhl07M6O8wo2CllVceKaiASCbxQnJgEqWUPXOlkSq0yQW-7MIHK2kRWA7NoyxezOF1Hqe66btIgqCrODGMmybNnocJU_bqi3l5q3hUiv8j57xBwahod9W5ohLOdBV6mGPEphXzcpURzelmWasOrMsXU_BH8bLNRqLb5ioyu6_-4JOlhuElYMf0lfV7AREoEeOsv9VqTfmnwXD17MdYMoWkQw4",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api-merchant.test.paynet.md/api/Payments/285029",
+					"protocol": "https",
+					"host": [
+						"api-merchant",
+						"test",
+						"paynet",
+						"md"
+					],
+					"path": [
+						"api",
+						"Payments",
+						"285029"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
