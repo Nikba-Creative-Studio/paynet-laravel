@@ -19,12 +19,11 @@ php artisan vendor:publish --provider="Nikba\Paynet\Providers\PaynetServiceProvi
 Add the following environment variables to your .env file:
 
 ```bash
-PAYNET_API_URL=https://api-merchant.test.paynet.md/
 PAYNET_MERCHANT_CODE=862491
 PAYNET_SECRET_KEY=F822E47B-6F4F-4D9D-92EB-566ED89E3D76
 PAYNET_USERNAME=388018
 PAYNET_PASSWORD=6olmfsQX
-PAYNET_MODE=false
+PAYNET_TEST_MODE=true
 ```
 
 ## Usage

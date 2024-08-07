@@ -17,15 +17,24 @@ class PaynetService
     protected $mode;
     protected $token;
 
+ 
+	/**
+	* The base URL to API
+    * @var string
+    * Production link: https://paynet.md:4446
+    * Test link: https://test.paynet.md:4446
+	*/
+
     public function __construct()
     {
         $this->client = new Client();
-        $this->apiUrl = config('paynet.api_url');
         $this->merchantCode = config('paynet.merchant_code');
         $this->username = config('paynet.username');
         $this->password = config('paynet.password');
         $this->secretKey = config('paynet.secret_key');
-        $this->mode = config('paynet.mode');
+        $this->mode = config('paynet.test_mode');
+
+        $this->apiUrl = $this->mode ? 'https://api-merchant.test.paynet.md' : 'https://paynet.md:4446';
     }
 
     /**
